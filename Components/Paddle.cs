@@ -4,20 +4,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Pong.Components
 {
-    internal class Paddle : GameComponent
+    internal class Paddle : GameObject
     {
         readonly Pong _game;
 
-        public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
+        public override Texture2D Texture { get; set; }
+        public override Vector2 Position { get; set; }
+        public override string Name { get; set; }
         public Vector2 Direction { get; set; }
         public float Spacing { get; set; }
         public float Speed { get; set; }
 
-        public Paddle(Pong game) : base(game)
+        public Paddle(Pong game, string name) : base(game, name)
         {
             _game = game;
 
+            Name = name;
             Spacing = 20;
             Speed = 250f;
         }

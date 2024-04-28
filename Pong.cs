@@ -12,11 +12,7 @@ namespace Pong
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private List<GameComponent> components = new List<GameComponent>();
-
-        private Ball _ball;
-        private Paddle _paddle1;
-        private Paddle _paddle2;
+        private readonly List<GameObject> gameObjects = new();
 
         public readonly float Width;
         public readonly float Height;
@@ -36,17 +32,17 @@ namespace Pong
             Height = _graphics.PreferredBackBufferHeight;
             _centerScreen = new Vector2(Width / 2, Height / 2);
 
-            _ball = new Ball(this);
+            Ball _ball = new(this, "ball");
             _ball.Position = _centerScreen;
-            components.Add(_ball);
+            gameObjects.Add(_ball);
 
-            _paddle1 = new Paddle(this);
+            Paddle _paddle1 = new(this, "paddle_1");
             _paddle1.Position = new Vector2(_paddle1.Spacing, Height/2);
-            components.Add(_paddle1);
+            gameObjects.Add(_paddle1);
 
-            _paddle2 = new Paddle(this);
+            Paddle _paddle2 = new(this, "paddle_2");
             _paddle2.Position = new Vector2(this.Width - _paddle2.Spacing, Height/2);
-            components.Add(_paddle2);
+            gameObjects.Add(_paddle2);
 
             //_player1 = new Player(this, _paddle1);
 
@@ -58,9 +54,10 @@ namespace Pong
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _ball.Texture = Content.Load<Texture2D>("ball");
-            _paddle1.Texture = Content.Load<Texture2D>("paddle_1");
-            _paddle2.Texture = Content.Load<Texture2D>("paddle_2");
+            foreach (GameObject go in gameObjects)
+            {
+                go.Texture = Content.Load<Texture2D>(go.Name);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,9 +76,9 @@ namespace Pong
             }
 
 
-            foreach (GameComponent component in components)
+            foreach (GameObject go in gameObjects)
             {
-                component.Update(gameTime);
+                go.Update(gameTime);
             }
             base.Update(gameTime);
         }
@@ -92,58 +89,20 @@ namespace Pong
 
             _spriteBatch.Begin();
 
-            //foreach (GameComponent component in components)
-            //{
-            //    _spriteBatch.Draw(
-            //        component.Texture,
-            //        component.Position,
-            //        null,
-            //        Color.White,
-            //        0f,
-            //        new Vector2(component.Texture.Width / 2, component.Texture.Height / 2),
-            //        Vector2.One,
-            //        SpriteEffect.None,
-            //        0f
-            //    );
-            //}
-
-            // Draw ball
-            _spriteBatch.Draw(
-                _ball.Texture,
-                _ball.Position,
-                null,
-                Color.White,
-                0f,
-                new Vector2(_ball.Texture.Width / 2, _ball.Texture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
+            foreach (GameObject go in gameObjects)
+            {
+                _spriteBatch.Draw(
+                    go.Texture,
+                    go.Position,
+                    null,
+                    Color.White,
+                    0f,
+                    new Vector2(go.Texture.Width / 2, go.Texture.Height / 2),
+                    Vector2.One,
+                    SpriteEffects.None,
+                    0f
                 );
-
-            // Draw paddles
-            _spriteBatch.Draw(
-                _paddle1.Texture,
-                _paddle1.Position,
-                null,
-                Color.White,
-                0f,
-                new Vector2(_paddle1.Texture.Width / 2, _paddle1.Texture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
-
-            _spriteBatch.Draw(
-                _paddle2.Texture,
-                _paddle2.Position,
-                null,
-                Color.White,
-                0f,
-                new Vector2(_paddle2.Texture.Width / 2, _paddle2.Texture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
+            }
 
             _spriteBatch.End();
 

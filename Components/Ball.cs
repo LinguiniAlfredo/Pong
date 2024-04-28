@@ -4,19 +4,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong.Components
 {
-    public class Ball : GameComponent
+    internal class Ball : GameObject
     {
-        Pong _game;
-        public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
+        readonly Pong _game;
+
+        public override Texture2D Texture { get; set; }
+        public override Vector2 Position { get; set; }
+        public override string Name { get; set; }
         public Vector2 Direction { get; set; }
         public float Spacing { get; set; }
         public float Speed { get; set; }
 
 
-        public Ball(Pong game) : base(game)
+        public Ball(Pong game, string name) : base(game, name)
         {
             _game = game;
+
+            Name = name;
             Direction = new Vector2(1, 1);
             Speed = 100f;
         }
