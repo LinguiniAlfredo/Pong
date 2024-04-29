@@ -59,7 +59,7 @@ namespace Pong
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Content.Load<SpriteFont>("Score");
+            _spriteFont = Content.Load<SpriteFont>("StdFont");
 
             foreach (GameObject go in gameObjects)
             {
@@ -111,6 +111,8 @@ namespace Pong
 
             _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score, new Vector2(100, 0), Color.Black);
             _spriteBatch.DrawString(_spriteFont, "Score: " + _player2.Score, new Vector2(Width-250, 0), Color.Black);
+
+            _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Black);
 
             _spriteBatch.End();
 

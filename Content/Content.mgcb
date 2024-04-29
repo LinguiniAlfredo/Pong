@@ -49,10 +49,10 @@
 /processorParam:TextureFormat=Color
 /build:paddle_2.png
 
-#begin Score.spritefont
+#begin StdFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Score.spritefont
+/build:StdFont.spritefont
 
