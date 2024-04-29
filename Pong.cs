@@ -108,6 +108,7 @@ namespace Pong
                     0f
                 );
             }
+
             _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score, new Vector2(100, 0), Color.Black);
             _spriteBatch.DrawString(_spriteFont, "Score: " + _player2.Score, new Vector2(Width-250, 0), Color.Black);
 

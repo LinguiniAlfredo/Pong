@@ -46,7 +46,7 @@ namespace Pong.Components
             Position += velocity * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // update collision position and check for collisions
-            Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height))
+            Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
         }
     }
 }
