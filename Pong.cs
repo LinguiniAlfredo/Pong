@@ -12,6 +12,10 @@ namespace Pong
     {
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont _spriteFont;
+
+        internal Player _player;
+        internal Player _player2;
 
         internal List<GameObject> gameObjects = new();
 
@@ -45,7 +49,8 @@ namespace Pong
             _paddle2.Position = new Vector2(this.Width - _paddle2.Spacing, Height/2);
             gameObjects.Add(_paddle2);
 
-            //_player1 = new Player(this, _paddle1);
+            _player = new Player(this, PlayerIndex.One, _paddle1);
+            _player2 = new Player(this, PlayerIndex.Two, _paddle1);
 
             Started = false;
 
@@ -54,6 +59,7 @@ namespace Pong
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteFont = Content.Load<SpriteFont>("Score");
 
             foreach (GameObject go in gameObjects)
             {
@@ -75,7 +81,6 @@ namespace Pong
                 Started = true;
             }
 
-            // luckily I only have 3 objects...
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
@@ -103,9 +108,10 @@ namespace Pong
                     0f
                 );
             }
+            _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score, new Vector2(100, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Score: " + _player2.Score, new Vector2(Width-250, 0), Color.Black);
 
             _spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

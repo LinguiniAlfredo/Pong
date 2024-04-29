@@ -19,6 +19,7 @@ namespace Pong.Components
         public float Speed { get; set; }
 
         public bool _isColliding = false;
+        private float _defaultSpeed = 100f;
 
 
         public Ball(Pong game, string name) : base(game, name)
@@ -27,7 +28,7 @@ namespace Pong.Components
 
             Name = name;
             Direction = new Vector2(1, 1);
-            Speed = 100f;
+            Speed = _defaultSpeed;
 
         }
 
@@ -47,27 +48,27 @@ namespace Pong.Components
                 }
 
                 // score conditions
-                if (Position.X < Texture.Width / 2)
+                if (Position.X > _game.Width - Texture.Width / 2)
                 {
-                    // increment player 2 score
                     Position = _game._centerScreen;
+                    Speed = _defaultSpeed;
+                    _game._player.IncrementScore();
                     _game.Started = false;
                 }
 
-                if (Position.X > _game.Width - Texture.Width / 2)
+                if (Position.X < Texture.Width / 2)
                 {
-                    // increment player 1 score
                     Position = _game._centerScreen;
+                    Speed = _defaultSpeed;
+                    _game._player2.IncrementScore();
                     _game.Started = false;
                 }
 
                 // update ball position based on direction vector and speed;
                 Position += velocity * Speed * (float)deltaTime.ElapsedGameTime.TotalSeconds * Direction;
 
-
-                // update collision position and check for collisions
+                // update collision position and check for collisions, increase speed and reverse direction
                 Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
-
 
                 foreach (GameObject go in _game.gameObjects)
                 {
@@ -75,8 +76,8 @@ namespace Pong.Components
                     {
                         if (go.Collision.Intersects(this.Collision))
                         {
-                            Debug.WriteLine("COLLIDED");
                             Direction = new Vector2(Direction.X * -1, Direction.Y);
+                            Speed += 25f;
                         }                        
                     }
                 }
