@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Pong.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Pong
 {
@@ -12,7 +13,7 @@ namespace Pong
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private readonly List<GameObject> gameObjects = new();
+        internal List<GameObject> gameObjects = new();
 
         public readonly float Width;
         public readonly float Height;
@@ -69,13 +70,12 @@ namespace Pong
                 Exit();
             }
 
-            // Start logic
             if (kstate.IsKeyDown(Keys.Space))
             {
                 Started = true;
             }
 
-
+            // luckily I only have 3 objects...
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);

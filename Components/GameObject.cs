@@ -14,11 +14,12 @@ namespace Pong.Components
 {
     abstract class GameObject : GameComponent
     {
-
         public abstract String Name { get; set;}
         public abstract Vector2 Position { get; set;}
         public abstract Texture2D Texture {get; set;}
-        public abstract Collision Collision { get; set; }
+        public abstract Rectangle Collision { get; set; }
+
+        public bool isColliding;
 
         public GameObject(Game game, String name) : base(game)
         {

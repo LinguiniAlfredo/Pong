@@ -8,12 +8,14 @@ namespace Pong.Components
     {
         readonly Pong _game;
 
+        public override string Name { get; set; }
         public override Texture2D Texture { get; set; }
         public override Vector2 Position { get; set; }
-        public override string Name { get; set; }
+        public override Rectangle Collision { get; set; }
         public Vector2 Direction { get; set; }
         public float Spacing { get; set; }
         public float Speed { get; set; }
+
 
         public Paddle(Pong game, string name) : base(game, name)
         {
@@ -42,6 +44,10 @@ namespace Pong.Components
             }
 
             Position += velocity * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // update collision position and check for collisions
+            Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
+
 
         }
     }
