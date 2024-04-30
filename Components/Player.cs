@@ -14,17 +14,26 @@ namespace Pong.Components
 
         private readonly PlayerIndex _id;
         public int Score { get; private set; }
-    
+        public int HiScore { get; private set; }
+
         public Player(Pong game, PlayerIndex id, Paddle paddle) 
         {
             _game = game;
             _id = id;
-            Score = 0; 
+            Score = 0;
+            HiScore = 0;
         }
 
         public void IncrementScore()
         {
             Score += 1;
+        }
+        public void ResetScore() {
+            if (Score > HiScore)
+            {
+                HiScore = Score;
+            }
+            Score = 0;
         }
     }
 }

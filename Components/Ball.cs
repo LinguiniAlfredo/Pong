@@ -18,6 +18,7 @@ namespace Pong.Components
         public float Spacing { get; set; }
         public float Speed { get; set; }
 
+
         public bool _isColliding = false;
         private float _defaultSpeed = 100f;
 
@@ -52,7 +53,7 @@ namespace Pong.Components
                 {
                     Position = _game._centerScreen;
                     Speed = _defaultSpeed;
-                    _game._player.IncrementScore();
+                    _game._player.ResetScore();
                     _game.Started = false;
                 }
 
@@ -60,7 +61,7 @@ namespace Pong.Components
                 {
                     Position = _game._centerScreen;
                     Speed = _defaultSpeed;
-                    _game._player2.IncrementScore();
+                    _game._player.ResetScore();
                     _game.Started = false;
                 }
 
@@ -70,6 +71,7 @@ namespace Pong.Components
                 // update collision position and check for collisions, increase speed and reverse direction
                 Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
 
+
                 foreach (GameObject go in _game.gameObjects)
                 {
                     if (go.Name != "ball")
@@ -78,6 +80,7 @@ namespace Pong.Components
                         {
                             Direction = new Vector2(Direction.X * -1, Direction.Y);
                             Speed += 25f;
+                            _game._player.IncrementScore();
                         }                        
                     }
                 }

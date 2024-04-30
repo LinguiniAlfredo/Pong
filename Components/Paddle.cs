@@ -34,19 +34,19 @@ namespace Pong.Components
 
             var velocity = Vector2.Zero;
 
-            if (kstate.IsKeyDown(Keys.Up))
+            if (kstate.IsKeyDown(Keys.W) || kstate.IsKeyDown(Keys.Up))
             {
                 velocity.Y -= 1;
             }
-            if (kstate.IsKeyDown(Keys.Down))
+            if (kstate.IsKeyDown(Keys.S) || kstate.IsKeyDown(Keys.Down))
             {
                 velocity.Y += 1;
             }
 
-            Position += velocity * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             // update collision position and check for collisions
             Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
+
+            Position += velocity * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

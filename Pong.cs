@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Penumbra;
 using Pong.Components;
 using System;
 using System.Collections.Generic;
@@ -110,7 +111,7 @@ namespace Pong
             }
 
             _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score, new Vector2(100, 0), Color.Black);
-            _spriteBatch.DrawString(_spriteFont, "Score: " + _player2.Score, new Vector2(Width-250, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + _player.HiScore, new Vector2(200, 0), Color.Black);
 
             _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Black);
 
