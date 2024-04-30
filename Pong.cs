@@ -83,6 +83,7 @@ namespace Pong
 
             if (!Started && _player.Score > _player.HiScore)
             {
+                // TODO - Get player initials
                 _player.UpdateHiScores("AAA", _player.Score);
                 _player.ResetScore();
             }

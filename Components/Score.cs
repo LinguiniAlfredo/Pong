@@ -8,11 +8,12 @@ namespace Pong.Components
 {
     internal class Score
     {
-        public string _player;
-        public int _score;
-        public Score(string player, int score) {
-            _player = player;
-            _score = score;
+        public string Player {get; set;}
+        public int Value { get; set;}
+
+        public Score(string player, int value) {
+            Player = player;
+            Value = value;
         }
     }
 }
