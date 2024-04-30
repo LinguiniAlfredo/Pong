@@ -51,7 +51,6 @@ namespace Pong
             gameObjects.Add(_paddle2);
 
             _player = new Player(this, PlayerIndex.One, _paddle1);
-            _player2 = new Player(this, PlayerIndex.Two, _paddle1);
 
             Started = false;
 
@@ -82,11 +81,18 @@ namespace Pong
                 Started = true;
             }
 
+            if (!Started && _player.Score > _player.HiScore)
+            {
+                _player.UpdateHiScores("AAA", _player.Score);
+                _player.ResetScore();
+            }
+
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
             }
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)

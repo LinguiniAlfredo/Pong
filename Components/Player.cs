@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Pong.Components
 {
@@ -20,6 +16,7 @@ namespace Pong.Components
         {
             _game = game;
             _id = id;
+
             Score = 0;
             HiScore = 0;
         }
@@ -28,12 +25,15 @@ namespace Pong.Components
         {
             Score += 1;
         }
-        public void ResetScore() {
-            if (Score > HiScore)
-            {
-                HiScore = Score;
-            }
+        public void ResetScore() { 
             Score = 0;
+        }
+        public void UpdateHiScores(string player, int hiScore)
+        {
+            HiScore = hiScore;
+            Score score = new(player, hiScore);
+            string json = JsonSerializer.Serialize(score);
+            Debug.WriteLine(json);
         }
     }
 }

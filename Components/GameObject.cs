@@ -19,8 +19,6 @@ namespace Pong.Components
         public abstract Texture2D Texture {get; set;}
         public abstract Rectangle Collision { get; set; }
 
-        public bool isColliding;
-
         public GameObject(Game game, String name) : base(game)
         {
         }

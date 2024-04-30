@@ -18,8 +18,6 @@ namespace Pong.Components
         public float Spacing { get; set; }
         public float Speed { get; set; }
 
-
-        public bool _isColliding = false;
         private float _defaultSpeed = 100f;
 
 
@@ -53,7 +51,6 @@ namespace Pong.Components
                 {
                     Position = _game._centerScreen;
                     Speed = _defaultSpeed;
-                    _game._player.ResetScore();
                     _game.Started = false;
                 }
 
@@ -61,7 +58,6 @@ namespace Pong.Components
                 {
                     Position = _game._centerScreen;
                     Speed = _defaultSpeed;
-                    _game._player.ResetScore();
                     _game.Started = false;
                 }
 
