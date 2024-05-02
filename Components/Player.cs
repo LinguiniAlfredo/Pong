@@ -12,35 +12,35 @@ namespace Pong.Components
         internal Pong _game;
 
         private readonly PlayerIndex _id;
-        public int Score { get; private set; }
-        public int HiScore { get; private set; }
-
-        private readonly string _filepath = "C:\\vs_projects\\Pong\\Pong\\scores.json";
-
+        
+        public Score Score;
+        
+        public int currentHiScore;
+        
         public Player(Pong game, PlayerIndex id, Paddle paddle) 
         {
             _game = game;
             _id = id;
-
-            Score = 0;
-            HiScore = 0;
+            Score = new Score("AAA", 0);
+            Score.Value = 0;
+            currentHiScore = 0;
         }
 
         public void IncrementScore()
         {
-            Score += 1;
+            Score.Value += 1;
         }
 
         public void ResetScore() { 
-            Score = 0;
+            Score.Value = 0;
         }
 
-        public void UpdateHiScores(string player, int hiScore)
+        public void UpdateHiScores(int hiScore)
         {
             var list = new List<Score>();
             try
             {
-                var hiscores = File.ReadAllText(_filepath);
+                var hiscores = File.ReadAllText(Score._filepath);
                 list = JsonConvert.DeserializeObject<List<Score>>(hiscores);
             }
             catch (FileNotFoundException e)
@@ -48,13 +48,13 @@ namespace Pong.Components
                 // do stuff
             }
 
-            HiScore = hiScore;
-            Score newScore = new(player, hiScore);
+            currentHiScore = hiScore;
+            Score.Value = currentHiScore;
 
-            list.Add(newScore);
+            list.Add(Score);
             
             string json = System.Text.Json.JsonSerializer.Serialize(list);
-            File.WriteAllText(_filepath, json);
+            File.WriteAllText(Score._filepath, json);
             Debug.WriteLine(json);
         }
 

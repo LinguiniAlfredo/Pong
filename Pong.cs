@@ -81,10 +81,10 @@ namespace Pong
                 Started = true;
             }
 
-            if (!Started && _player.Score > _player.HiScore)
+            if (!Started && _player.Score.Value > _player.currentHiScore)
             {
                 // TODO - Get player initials
-                _player.UpdateHiScores("AAA", _player.Score);
+                _player.UpdateHiScores(_player.Score.Value);
                 _player.ResetScore();
             }
 
@@ -117,8 +117,8 @@ namespace Pong
                 );
             }
 
-            _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score, new Vector2(100, 0), Color.Black);
-            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + _player.HiScore, new Vector2(200, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score.Value, new Vector2(100, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + _player.currentHiScore, new Vector2(200, 0), Color.Black);
 
             _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Black);
 
