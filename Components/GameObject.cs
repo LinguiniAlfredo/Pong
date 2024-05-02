@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Pong.Components
 {
-    abstract class GameObject : GameComponent
+    internal abstract class GameObject : GameComponent
     {
-        public abstract String Name { get; set;}
+        public abstract string Name { get; set;}
         public abstract Vector2 Position { get; set;}
         public abstract Texture2D Texture {get; set;}
         public abstract Rectangle Collision { get; set; }
 
-        public GameObject(Game game, String name) : base(game)
+        protected GameObject(Game game, string name) : base(game)
         {
         }
     }

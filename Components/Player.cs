@@ -9,13 +9,13 @@ namespace Pong.Components
 {
     internal class Player
     {
-        internal Pong _game;
+        private readonly Pong _game;
 
         private readonly PlayerIndex _id;
         
-        public Score Score;
+        public readonly Score Score;
         
-        public int currentHiScore;
+        public int CurrentHiScore;
         
         public Player(Pong game, PlayerIndex id, Paddle paddle) 
         {
@@ -23,7 +23,7 @@ namespace Pong.Components
             _id = id;
             Score = new Score("AAA", 0);
             Score.Value = 0;
-            currentHiScore = 0;
+            CurrentHiScore = 0;
         }
 
         public void IncrementScore()
@@ -40,7 +40,7 @@ namespace Pong.Components
             var list = new List<Score>();
             try
             {
-                var hiscores = File.ReadAllText(Score._filepath);
+                var hiscores = File.ReadAllText(Score.Filepath);
                 list = JsonConvert.DeserializeObject<List<Score>>(hiscores);
             }
             catch (FileNotFoundException e)
@@ -48,13 +48,13 @@ namespace Pong.Components
                 // do stuff
             }
 
-            currentHiScore = hiScore;
-            Score.Value = currentHiScore;
+            CurrentHiScore = hiScore;
+            Score.Value = CurrentHiScore;
 
             list.Add(Score);
             
             string json = System.Text.Json.JsonSerializer.Serialize(list);
-            File.WriteAllText(Score._filepath, json);
+            File.WriteAllText(Score.Filepath, json);
             Debug.WriteLine(json);
         }
 

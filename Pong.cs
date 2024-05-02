@@ -11,46 +11,44 @@ namespace Pong
 {
     public class Pong : Game
     {
-        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
 
-        internal Player _player;
-        internal Player _player2;
+        internal readonly Player Player;
 
-        internal List<GameObject> gameObjects = new();
+        internal readonly List<GameObject> GameObjects = new();
 
         public readonly float Width;
         public readonly float Height;
 
-        public Vector2 _centerScreen;
-
+        public Vector2 CenterScreen;
+        
         public bool Started { get; set; }
 
 
         public Pong()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            var graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             
-            Width = _graphics.PreferredBackBufferWidth;
-            Height = _graphics.PreferredBackBufferHeight;
-            _centerScreen = new Vector2(Width / 2, Height / 2);
+            Width = graphics.PreferredBackBufferWidth;
+            Height = graphics.PreferredBackBufferHeight;
+            CenterScreen = new Vector2(Width / 2, Height / 2);
 
-            Ball _ball = new(this, "ball");
-            _ball.Position = _centerScreen;
-            gameObjects.Add(_ball);
+            Ball ball = new(this, "ball");
+            ball.Position = CenterScreen;
+            GameObjects.Add(ball);
 
-            Paddle _paddle1 = new(this, "paddle_1");
-            _paddle1.Position = new Vector2(_paddle1.Spacing, Height/2);
-            gameObjects.Add(_paddle1);
+            Paddle paddle1 = new(this, "paddle_1");
+            paddle1.Position = new Vector2(paddle1.Spacing, Height/2);
+            GameObjects.Add(paddle1);
 
-            Paddle _paddle2 = new(this, "paddle_2");
-            _paddle2.Position = new Vector2(this.Width - _paddle2.Spacing, Height/2);
-            gameObjects.Add(_paddle2);
+            Paddle paddle2 = new(this, "paddle_2");
+            paddle2.Position = new Vector2(this.Width - paddle2.Spacing, Height/2);
+            GameObjects.Add(paddle2);
 
-            _player = new Player(this, PlayerIndex.One, _paddle1);
+            Player = new Player(this, PlayerIndex.One, paddle1);
 
             Started = false;
 
@@ -61,7 +59,7 @@ namespace Pong
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Content.Load<SpriteFont>("StdFont");
 
-            foreach (GameObject go in gameObjects)
+            foreach (GameObject go in GameObjects)
             {
                 go.Texture = Content.Load<Texture2D>(go.Name);
             }
@@ -81,14 +79,14 @@ namespace Pong
                 Started = true;
             }
 
-            if (!Started && _player.Score.Value > _player.currentHiScore)
+            if (!Started && Player.Score.Value > Player.CurrentHiScore)
             {
                 // TODO - Get player initials
-                _player.UpdateHiScores(_player.Score.Value);
-                _player.ResetScore();
+                Player.UpdateHiScores(Player.Score.Value);
+                Player.ResetScore();
             }
 
-            foreach (GameObject go in gameObjects)
+            foreach (GameObject go in GameObjects)
             {
                 go.Update(gameTime);
             }
@@ -102,7 +100,7 @@ namespace Pong
 
             _spriteBatch.Begin();
 
-            foreach (GameObject go in gameObjects)
+            foreach (GameObject go in GameObjects)
             {
                 _spriteBatch.Draw(
                     go.Texture,
@@ -117,8 +115,8 @@ namespace Pong
                 );
             }
 
-            _spriteBatch.DrawString(_spriteFont, "Score: " + _player.Score.Value, new Vector2(100, 0), Color.Black);
-            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + _player.currentHiScore, new Vector2(200, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Score: " + Player.Score.Value, new Vector2(100, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + Player.CurrentHiScore, new Vector2(200, 0), Color.Black);
 
             _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Black);
 

@@ -10,9 +10,9 @@ namespace Pong.Components
     {
         public string Player {get; set;}
         public int Value { get; set;}
-        
-        public readonly string _filepath = "C:\\vs_projects\\Pong\\Pong\\scores.json";
-        
+
+        public const string Filepath = @"C:\vs_projects\Pong\Pong\scores.json";
+
         public Score(string player, int value) {
             Player = player;
             Value = value;

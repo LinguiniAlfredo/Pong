@@ -6,15 +6,14 @@ namespace Pong.Components
 {
     internal class Paddle : GameObject
     {
-        readonly Pong _game;
-
-        public override string Name { get; set; }
+        private readonly Pong _game;
+        
+        public sealed override string Name { get; set; }
         public override Texture2D Texture { get; set; }
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
-        public Vector2 Direction { get; set; }
         public float Spacing { get; set; }
-        public float Speed { get; set; }
+        private float Speed { get; set; }
 
 
         public Paddle(Pong game, string name) : base(game, name)
