@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -32,12 +33,12 @@ namespace Pong.Components
             var kstate = Keyboard.GetState();
 
             var velocity = Vector2.Zero;
-
-            if (kstate.IsKeyDown(Keys.W) || kstate.IsKeyDown(Keys.Up))
+            
+            if ((kstate.IsKeyDown(Keys.W) || kstate.IsKeyDown(Keys.Up)) && Position.Y > 0 + Texture.Height/2f)
             {
                 velocity.Y -= 1;
             }
-            if (kstate.IsKeyDown(Keys.S) || kstate.IsKeyDown(Keys.Down))
+            if ((kstate.IsKeyDown(Keys.S) || kstate.IsKeyDown(Keys.Down)) && Position.Y < _game.Height - Texture.Height/2f)
             {
                 velocity.Y += 1;
             }
