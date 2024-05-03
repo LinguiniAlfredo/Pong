@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Pong.Components
 {
-    internal abstract class GameObject : GameComponent
+    public abstract class GameObject : GameComponent
     {
         public abstract string Name { get; set;}
         public abstract Vector2 Position { get; set;}

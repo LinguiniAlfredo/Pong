@@ -17,7 +17,7 @@ namespace Pong.Components
         
         public int CurrentHiScore;
         
-        public Player(Pong game, PlayerIndex id, Paddle paddle) 
+        public Player(Pong game, PlayerIndex id) 
         {
             _game = game;
             _id = id;

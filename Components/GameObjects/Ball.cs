@@ -38,23 +38,24 @@ namespace Pong.Components
             velocity.Y = 1;
 
             // bounce off ceiling/floor 
-            if (Position.Y < Texture.Height / 2 || Position.Y > _game.Height - Texture.Height / 2)
+            if (Position.Y < Texture.Height / 2f || Position.Y > _game.Height - Texture.Height / 2f)
             {
                 Direction = new Vector2(Direction.X, Direction.Y * -1);
             }
 
             // score conditions
-            if (Position.X > _game.Width - Texture.Width / 2)
+            if (Position.X > _game.Width - Texture.Width / 2f)
             {
                 Position = _game.CenterScreen;
                 Speed = DefaultSpeed;
                 _game.Started = false;
             }
 
-            if (Position.X < Texture.Width / 2)
+            if (Position.X < Texture.Width / 2f)
             {
                 Position = _game.CenterScreen;
                 Speed = DefaultSpeed;
+                _game.SetCurrentScene(_game.Scenes.Find(e => e.Name == "gameover"));
                 _game.Started = false;
             }
 
@@ -64,9 +65,7 @@ namespace Pong.Components
             // update collision position and check for collisions, increase speed and reverse direction
             Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
 
-    
-            // TODO - Fix this wonky collision 
-            foreach (GameObject go in _game.GameObjects)
+            foreach (GameObject go in _game.CurrentScene.GameObjects)
             {
                 if (go.Name != "ball")
                 {

@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Penumbra;
 using Pong.Components;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using Pong.Components.Scenes;
 
 namespace Pong
 {
@@ -16,7 +18,8 @@ namespace Pong
 
         internal readonly Player Player;
 
-        internal readonly List<GameObject> GameObjects = new();
+        internal readonly List<Scene> Scenes = new();
+        internal Scene CurrentScene;
 
         public readonly float Width;
         public readonly float Height;
@@ -36,19 +39,17 @@ namespace Pong
             Height = graphics.PreferredBackBufferHeight;
             CenterScreen = new Vector2(Width / 2, Height / 2);
 
-            Ball ball = new(this, "ball");
-            ball.Position = CenterScreen;
-            GameObjects.Add(ball);
+            // TODO - Put scene construction in a function/helper thing
+            Scenes.Add(new Title(this, 0, "title"));
+            Scenes.Add(new Level1(this, 1, "level1"));
+            // Scenes.Add(new Level2(this, 2, "level2"));
+            // Scenes.Add(new Level3(this, 3, "level3"));
+            // Scenes.Add(new Level4(this, 4, "level4"));
+            Scenes.Add(new GameOver(this, 9, "gameover"));
+            
+            SetCurrentScene(Scenes.Find(e => e.Name == "title"));
 
-            Paddle paddle1 = new(this, "paddle_1");
-            paddle1.Position = new Vector2(paddle1.Spacing, Height/2);
-            GameObjects.Add(paddle1);
-
-            Paddle paddle2 = new(this, "paddle_2");
-            paddle2.Position = new Vector2(this.Width - paddle2.Spacing, Height/2);
-            GameObjects.Add(paddle2);
-
-            Player = new Player(this, PlayerIndex.One, paddle1);
+            Player = new Player(this, PlayerIndex.One);
 
             Started = false;
 
@@ -59,7 +60,8 @@ namespace Pong
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Content.Load<SpriteFont>("StdFont");
 
-            foreach (GameObject go in GameObjects)
+            Debug.WriteLine("loading content....");
+            foreach (var go in Scenes.SelectMany(scene => scene.GameObjects))
             {
                 go.Texture = Content.Load<Texture2D>(go.Name);
             }
@@ -76,6 +78,7 @@ namespace Pong
 
             if (kstate.IsKeyDown(Keys.Space))
             {
+                SetCurrentScene(Scenes.Find(e => e.Name == "level1"));
                 Started = true;
             }
 
@@ -85,11 +88,12 @@ namespace Pong
                 Player.UpdateHiScores(Player.Score.Value);
                 Player.ResetScore();
             }
-
-            foreach (GameObject go in GameObjects)
+            
+            foreach (GameObject go in CurrentScene.GameObjects)
             {
                 go.Update(gameTime);
             }
+            
             base.Update(gameTime);
 
         }
@@ -99,8 +103,8 @@ namespace Pong
             GraphicsDevice.Clear(Color.Gray);
 
             _spriteBatch.Begin();
-
-            foreach (GameObject go in GameObjects)
+            
+            foreach (GameObject go in CurrentScene.GameObjects)
             {
                 _spriteBatch.Draw(
                     go.Texture,
@@ -108,21 +112,35 @@ namespace Pong
                     null,
                     Color.White,
                     0f,
-                    new Vector2(go.Texture.Width / 2, go.Texture.Height / 2),
+                    new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),
                     Vector2.One,
                     SpriteEffects.None,
                     0f
                 );
             }
+            
+            // TODO - Add UI class to render these 
+            _spriteBatch.DrawString(_spriteFont, "Score: " + Player.Score.Value, 
+                                    new Vector2(100, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + Player.CurrentHiScore, 
+                                    new Vector2(200, 0), Color.Black);
+            
+            _spriteBatch.DrawString(_spriteFont, "Level: " + 
+                                    (CurrentScene.Index is > 0 and < 9 
+                                        ? CurrentScene.Index
+                                        : "0"), new Vector2(400, 0), Color.Black);
 
-            _spriteBatch.DrawString(_spriteFont, "Score: " + Player.Score.Value, new Vector2(100, 0), Color.Black);
-            _spriteBatch.DrawString(_spriteFont, "Hi Score: " + Player.CurrentHiScore, new Vector2(200, 0), Color.Black);
-
-            _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Black);
+            _spriteBatch.DrawString(_spriteFont, "FPS: " + Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds),
+                                    new Vector2(0, 0), Color.Black);
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void SetCurrentScene(Scene scene)
+        {
+            CurrentScene = scene;
         }
     }
 }
