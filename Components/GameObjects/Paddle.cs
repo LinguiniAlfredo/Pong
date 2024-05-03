@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Pong.Components
+namespace Pong.Components.GameObjects
 {
     internal class Paddle : GameObject
     {

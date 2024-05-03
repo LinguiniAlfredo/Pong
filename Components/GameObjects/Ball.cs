@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
-namespace Pong.Components
+namespace Pong.Components.GameObjects
 {
 
     internal class Ball : GameObject

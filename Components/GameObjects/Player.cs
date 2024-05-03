@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.Json;
+using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 
-namespace Pong.Components
+namespace Pong.Components.GameObjects
 {
     internal class Player
     {
