@@ -5,13 +5,20 @@ namespace Pong.Components
 {
     public abstract class GameObject : GameComponent
     {
+        private readonly Pong _game;
+
         public abstract string Name { get; set;}
         public abstract Vector2 Position { get; set;}
         public abstract Texture2D Texture {get; set;}
         public abstract Rectangle Collision { get; set; }
+        public abstract float Depth { get; set; }
 
-        protected GameObject(Game game, string name) : base(game)
+        protected GameObject(Pong game, string name) : base(game)
         {
+            _game = game;
+            Name = name;
+
+            Depth = 0f;
         }
     }
 }

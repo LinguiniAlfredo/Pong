@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,23 +15,32 @@ public class Cursor : GameObject
     public sealed override Vector2 Position { get; set; }
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
+    public override float Depth { get; set; }
 
-    private const float Speed = 600f;
-
-    private readonly List<Vector2> _positions = new List<Vector2>();
+    private const float Speed = 500f;
+    
+    private readonly List<Vector2> _menuPositions = new List<Vector2>();
+    
+    private int _currentMenuIndex;
+    
+    private Vector2 _targetPosition;
+    
     private bool _inPosition = true;
+    
     private int _direction = -1;
     
-    public Cursor(Pong game, string name) : base(game, name)
+    public Cursor(Pong game, string name, List<MenuItem> menuItems) : base(game, name)
     {
         _game = game;
         Name = name;
-        Position = new Vector2(_game.CenterScreen.X - 200, _game.CenterScreen.Y + 50);
-        
-        _positions.Add(Position);
-        _positions.Add(new Vector2(_positions[0].Y + 100));
-    }
 
+        foreach (var item in menuItems)
+        {
+            _menuPositions.Add(item.Position);
+        }
+        _currentMenuIndex = 0;
+    }
+    
     public override void Update(GameTime deltaTime)
     {
         var kstate = Keyboard.GetState();
@@ -40,32 +51,72 @@ public class Cursor : GameObject
         {
             velocity.Y = _direction;
         }
-        else
+        else 
         {
             if (kstate.IsKeyDown(Keys.W))
             {
-                velocity.Y -= 1;
-                _direction = -1;
-                _inPosition = false;
+                if (_currentMenuIndex == 0)
+                {
+                    _inPosition = false;
+                    _targetPosition = _menuPositions.Last();
+                    velocity.Y += 1;
+                    _direction = 1;
+                }
+                else
+                {
+                    _inPosition = false;
+                    _targetPosition = _menuPositions[_currentMenuIndex - 1];
+                    velocity.Y -= 1;
+                    _direction = -1;
+                }
             }
             
             if (kstate.IsKeyDown(Keys.S))
             {
-                velocity.Y += 1;
-                _direction = 1;
-                _inPosition = false;
+                if (_currentMenuIndex == _menuPositions.Count - 1)
+                {
+                    _inPosition = false;
+                    _targetPosition = _menuPositions[0];
+                    velocity.Y -= 1;
+                    _direction = -1;
+                }
+                else
+                {
+                    _inPosition = false;
+                    _targetPosition = _menuPositions[_currentMenuIndex + 1];
+                    velocity.Y += 1;
+                    _direction = 1;
+                }
             }
         }
         
         Position += velocity * Speed * (float)deltaTime.ElapsedGameTime.TotalSeconds;
 
-        foreach (var position in _positions)
+        if (_direction == 1)
         {
-            if (Position.Y >= position.Y)
+            if (Position.Y >= _targetPosition.Y)
             {
+                _currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
                 _inPosition = true;
-            }   
+                _direction = 0;
+                Debug.WriteLine("target: " + _targetPosition);
+                Debug.WriteLine("actual: " + Position);
+            }
         }
+        else if (_direction == -1)
+        {
+            if (Position.Y <= _targetPosition.Y)
+            {
+                _currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
+                _inPosition = true;
+                _direction = 0;
+                Debug.WriteLine("target: " + _targetPosition);
+                Debug.WriteLine("actual: " + Position);
+            }
+        }
+        
+        
     }
+    
 
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Pong.Components.UI;
 
@@ -25,11 +24,14 @@ public class TitleScreen : Scene
         title.Position = new Vector2(Game.CenterScreen.X, Game.CenterScreen.Y - 100);
         GameObjects.Add(title);
         
-        var cursor = new Cursor(Game, "cursor");
-        GameObjects.Add(cursor);
-
-        // MenuItem menuItem = new MenuItem(Game, "title");
+        var menu = new Menu(Game, "mainmenu", 3);
         
+        foreach (GameObject obj in menu.GameObjects)
+        {
+            obj.Depth = 1f;
+            GameObjects.Add(obj);
+        }
+        GameObjects.Add(menu);
     }
 
     public override void AddGameObject(GameObject obj)

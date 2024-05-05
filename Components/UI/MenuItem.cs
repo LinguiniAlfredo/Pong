@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong.Components.UI;
 
-public class Title : GameObject
+public class MenuItem : GameObject
 {
     private readonly Pong _game;
 
@@ -13,7 +13,9 @@ public class Title : GameObject
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
 
-    public Title(Pong game, string name) : base(game, name)
+    public const float Spacing = 50f;
+    
+    public MenuItem(Pong game, string name) : base(game, name)
     {
         _game = game;
         Name = name;

@@ -102,7 +102,7 @@ namespace Pong
         {
             GraphicsDevice.Clear(Color.Gray);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             
             foreach (GameObject go in CurrentScene.GameObjects)
             {
@@ -115,7 +115,7 @@ namespace Pong
                     new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),
                     Vector2.One,
                     SpriteEffects.None,
-                    0f
+                    go.Depth
                 );
             }
             

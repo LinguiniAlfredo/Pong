@@ -12,6 +12,7 @@ namespace Pong.Components.GameObjects
         public override Texture2D Texture { get; set; }
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
+        public override float Depth { get; set; }
         public float Spacing { get; set; }
         private float Speed { get; set; }
 
