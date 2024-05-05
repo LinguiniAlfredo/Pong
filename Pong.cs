@@ -40,7 +40,7 @@ namespace Pong
             CenterScreen = new Vector2(Width / 2, Height / 2);
 
             // TODO - Put scene construction in a function/helper thing
-            Scenes.Add(new Title(this, 0, "title"));
+            Scenes.Add(new TitleScreen(this, 0, "title"));
             Scenes.Add(new Level1(this, 1, "level1"));
             // Scenes.Add(new Level2(this, 2, "level2"));
             // Scenes.Add(new Level3(this, 3, "level3"));
@@ -70,7 +70,7 @@ namespace Pong
         protected override void Update(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
-
+            
             if (kstate.IsKeyDown(Keys.Escape))
             {
                 Exit();

@@ -17,7 +17,6 @@ public class GameOver : Scene
         Name = name;
         
         GameObjects = new List<GameObject>();
-        Debug.WriteLine("game over");
     }
 
     public override void AddGameObject(GameObject obj)
