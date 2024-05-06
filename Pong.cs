@@ -70,16 +70,10 @@ namespace Pong
         protected override void Update(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
-            
+
             if (kstate.IsKeyDown(Keys.Escape))
             {
-                Exit();
-            }
-
-            if (kstate.IsKeyDown(Keys.Space))
-            {
-                SetCurrentScene(Scenes.Find(e => e.Name == "level1"));
-                Started = true;
+                // TODO - Pause scene
             }
 
             if (!Started && Player.Score.Value > Player.CurrentHiScore)
@@ -104,7 +98,7 @@ namespace Pong
 
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             
-            foreach (GameObject go in CurrentScene.GameObjects)
+            foreach (var go in CurrentScene.GameObjects)
             {
                 _spriteBatch.Draw(
                     go.Texture,
@@ -119,9 +113,11 @@ namespace Pong
                 );
             }
             
-            // TODO - Add UI class to render these 
+            // TODO - Add UI class to render these with actual pixel art
+            
             _spriteBatch.DrawString(_spriteFont, "Score: " + Player.Score.Value, 
                                     new Vector2(100, 0), Color.Black);
+            
             _spriteBatch.DrawString(_spriteFont, "Hi Score: " + Player.CurrentHiScore, 
                                     new Vector2(200, 0), Color.Black);
             

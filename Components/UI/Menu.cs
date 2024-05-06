@@ -16,7 +16,12 @@ public class Menu : GameObject
 
     public readonly List<GameObject> GameObjects = new();
     
-    private readonly List<MenuItem> MenuItems = new(); 
+    public readonly List<MenuItem> MenuItems = new();
+
+    public int currentMenuIndex = 0;
+
+    public bool _allowInputs = false;
+
 
     public Menu(Pong game, string name, int rows) : base(game, name)
     {
@@ -27,16 +32,32 @@ public class Menu : GameObject
         
         for (var i = 0; i < rows; i++)
         {
-            var menuItem = new MenuItem(_game, "ball");
-            menuItem.Position = new Vector2(Position.X, (Position.Y - 50)+ (MenuItem.Spacing * i));
+            var menuItem = new MenuItem(_game, "");
+            menuItem.Position = new Vector2(Position.X, (Position.Y - 40)+ (MenuItem.Spacing * i));
             MenuItems.Add(menuItem);
-            GameObjects.Add(menuItem);
+            // GameObjects.Add(menuItem);
         }
         
-        var cursor = new Cursor(_game, "cursor", MenuItems);
+        var cursor = new Cursor(_game, "ball", this);
         GameObjects.Add(cursor);
 
         cursor.Position = new Vector2(MenuItems[0].Position.X - 160, MenuItems[0].Position.Y);
+    }
+
+    public override void Update(GameTime deltaTime)
+    {
+        var kstate = Keyboard.GetState();
+
+        if (kstate.IsKeyDown(Keys.Enter) && currentMenuIndex == 0)
+        {
+            _game.SetCurrentScene(_game.Scenes.Find(s => s.Name == "level1"));
+            _game.Started = true;
+        }       
+        if (kstate.IsKeyDown(Keys.Enter) && currentMenuIndex == 1)
+        {
+            _game.Exit();
+        }
+        
     }
 }
 

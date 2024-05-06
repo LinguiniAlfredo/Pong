@@ -24,7 +24,7 @@ public class TitleScreen : Scene
         title.Position = new Vector2(Game.CenterScreen.X, Game.CenterScreen.Y - 100);
         GameObjects.Add(title);
         
-        var menu = new Menu(Game, "mainmenu", 3);
+        var menu = new Menu(Game, "mainmenu", 2);
         
         foreach (GameObject obj in menu.GameObjects)
         {

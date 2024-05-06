@@ -13,7 +13,7 @@ public class MenuItem : GameObject
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
 
-    public const float Spacing = 50f;
+    public const float Spacing = 60f;
     
     public MenuItem(Pong game, string name) : base(game, name)
     {

@@ -10,6 +10,7 @@ namespace Pong.Components.UI;
 public class Cursor : GameObject
 {
     private readonly Pong _game;
+    private readonly Menu _menu;
 
     public sealed override string Name { get; set; }
     public sealed override Vector2 Position { get; set; }
@@ -17,11 +18,9 @@ public class Cursor : GameObject
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
 
-    private const float Speed = 500f;
+    private const float Speed = 1000f;
     
     private readonly List<Vector2> _menuPositions = new List<Vector2>();
-    
-    private int _currentMenuIndex;
     
     private Vector2 _targetPosition;
     
@@ -29,89 +28,93 @@ public class Cursor : GameObject
     
     private int _direction = -1;
     
-    public Cursor(Pong game, string name, List<MenuItem> menuItems) : base(game, name)
+    
+    public Cursor(Pong game, string name, Menu menu) : base(game, name)
     {
         _game = game;
+        _menu = menu;
         Name = name;
 
-        foreach (var item in menuItems)
+        foreach (var item in _menu.MenuItems)
         {
             _menuPositions.Add(item.Position);
         }
-        _currentMenuIndex = 0;
+        _menu.currentMenuIndex = 0;
     }
     
     public override void Update(GameTime deltaTime)
     {
         var kstate = Keyboard.GetState();
-
         var velocity = Vector2.Zero;
-
-        if (!_inPosition)
+        
+        
+        switch (_inPosition)
         {
-            velocity.Y = _direction;
+            case false:
+                velocity.Y = _direction;
+                break;
+            case true when kstate.IsKeyUp(Keys.W) && kstate.IsKeyUp(Keys.S):
+                _menu._allowInputs = true;
+                break;
         }
-        else 
+
+        if (_menu._allowInputs)
         {
             if (kstate.IsKeyDown(Keys.W))
             {
-                if (_currentMenuIndex == 0)
-                {
-                    _inPosition = false;
-                    _targetPosition = _menuPositions.Last();
-                    velocity.Y += 1;
-                    _direction = 1;
-                }
-                else
-                {
-                    _inPosition = false;
-                    _targetPosition = _menuPositions[_currentMenuIndex - 1];
-                    velocity.Y -= 1;
-                    _direction = -1;
-                }
+                if (_menu.currentMenuIndex == 0) { return; }
+
+                _inPosition = false;
+                _menu._allowInputs = false;
+                _targetPosition = _menuPositions[_menu.currentMenuIndex - 1];
+                velocity.Y -= 1;
+                _direction = -1;
+          
             }
-            
+        
             if (kstate.IsKeyDown(Keys.S))
             {
-                if (_currentMenuIndex == _menuPositions.Count - 1)
-                {
-                    _inPosition = false;
-                    _targetPosition = _menuPositions[0];
-                    velocity.Y -= 1;
-                    _direction = -1;
-                }
-                else
-                {
-                    _inPosition = false;
-                    _targetPosition = _menuPositions[_currentMenuIndex + 1];
-                    velocity.Y += 1;
-                    _direction = 1;
-                }
+                if (_menu.currentMenuIndex == _menuPositions.Count - 1){ return; }
+                
+                _inPosition = false;
+                _menu._allowInputs = false;
+                _targetPosition = _menuPositions[_menu.currentMenuIndex + 1];
+                velocity.Y += 1;
+                _direction = 1;
             }
         }
+       
+        
         
         Position += velocity * Speed * (float)deltaTime.ElapsedGameTime.TotalSeconds;
 
-        if (_direction == 1)
+        switch (_direction)
         {
-            if (Position.Y >= _targetPosition.Y)
+            case 1:
             {
-                _currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
-                _inPosition = true;
-                _direction = 0;
-                Debug.WriteLine("target: " + _targetPosition);
-                Debug.WriteLine("actual: " + Position);
+                if (Position.Y >= _targetPosition.Y)
+                {
+                    _menu.currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
+                    _inPosition = true;
+                    _direction = 0;
+                    Debug.WriteLine("target: " + _targetPosition);
+                    Debug.WriteLine("actual: " + Position);
+                }
+
+                break;
             }
-        }
-        else if (_direction == -1)
-        {
-            if (Position.Y <= _targetPosition.Y)
+            case -1:
             {
-                _currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
-                _inPosition = true;
-                _direction = 0;
-                Debug.WriteLine("target: " + _targetPosition);
-                Debug.WriteLine("actual: " + Position);
+                if (Position.Y <= _targetPosition.Y)
+                {
+                    _menu.currentMenuIndex = _menuPositions.IndexOf(_targetPosition);
+                    _inPosition = true;
+                    _direction = 0;
+                    Debug.WriteLine("target: " + _targetPosition);
+                    Debug.WriteLine("actual: " + Position);
+                }
+
+                break;
             }
         }
         
