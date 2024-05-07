@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong.Components.UI;
 
-public class Title : GameObject
+public class Title : GameObject     // TODO - Create UIObject class with less shit
 {
     private readonly Pong _game;
 
@@ -12,6 +12,7 @@ public class Title : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override Animation Animation { get; set; }
 
     public Title(Pong game, string name) : base(game, name)
     {

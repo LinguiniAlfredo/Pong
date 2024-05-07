@@ -13,6 +13,7 @@ public class Menu : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override Animation Animation { get; set; }
 
     public readonly List<GameObject> GameObjects = new();
     

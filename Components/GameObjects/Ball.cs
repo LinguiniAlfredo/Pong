@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Pong.Components.GameObjects
@@ -14,6 +13,7 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
+        public override Animation Animation { get; set; }
         private Vector2 Direction { get; set; }        
         private float Speed { get; set; }
 
@@ -46,9 +46,8 @@ namespace Pong.Components.GameObjects
 
             // score conditions
             if (Position.X > _game.Width - Texture.Width / 2f)
-            {
-                Position = _game.CenterScreen;
-                Speed = DefaultSpeed;
+            { 
+                Reset();
                 _game.Started = false;
             }
 
@@ -80,5 +79,10 @@ namespace Pong.Components.GameObjects
             }
         }
 
+        private void Reset()
+        {
+            Position = _game.CenterScreen;
+            Speed = DefaultSpeed;
+        }
     }
 }

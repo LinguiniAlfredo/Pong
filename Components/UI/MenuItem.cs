@@ -12,6 +12,7 @@ public class MenuItem : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override Animation Animation { get; set; }
 
     public const float Spacing = 60f;
     

@@ -64,6 +64,11 @@ namespace Pong
             foreach (var go in Scenes.SelectMany(scene => scene.GameObjects))
             {
                 go.Texture = Content.Load<Texture2D>(go.Name);
+                
+                if (go.Name == "guy_forward_left")
+                {
+                    go.AddAnimation(go.Texture, "idle", 5, 0);
+                }
             }
         }
 
@@ -100,17 +105,35 @@ namespace Pong
             
             foreach (var go in CurrentScene.GameObjects)
             {
-                _spriteBatch.Draw(
-                    go.Texture,
-                    go.Position,
-                    null,
-                    Color.White,
-                    0f,
-                    new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),
-                    Vector2.One,
-                    SpriteEffects.None,
-                    go.Depth
-                );
+                if (go.Name == "guy_forward_left")
+                {
+                    go.Animation.stencil.X += go.Animation.offset;
+                    _spriteBatch.Draw(
+                        go.Texture,
+                        go.Position,
+                        go.Animation.stencil,
+                        Color.White,
+                        0f,
+                        new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),
+                        Vector2.One,
+                        SpriteEffects.None,
+                        go.Depth
+                    );
+                }
+                else
+                {
+                    _spriteBatch.Draw(
+                        go.Texture,
+                        go.Position,
+                        null,
+                        Color.White,
+                        0f,
+                        new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),
+                        Vector2.One,
+                        SpriteEffects.None,
+                        go.Depth
+                    );
+                }
             }
             
             // TODO - Add UI class to render these with actual pixel art

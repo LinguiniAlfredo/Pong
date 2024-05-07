@@ -17,8 +17,9 @@ public class Cursor : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override Animation Animation { get; set; }
 
-    private const float Speed = 1000f;
+    private const float Speed = 1500f;
     
     private readonly List<Vector2> _menuPositions = new List<Vector2>();
     

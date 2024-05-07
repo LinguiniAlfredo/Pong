@@ -13,6 +13,7 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
+        public override Animation Animation { get; set; }
         public float Spacing { get; set; }
         private float Speed { get; set; }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Pong.Components.GameObjects;
 using Pong.Components.UI;
 
 namespace Pong.Components.Scenes;
@@ -32,6 +33,10 @@ public class TitleScreen : Scene
             GameObjects.Add(obj);
         }
         GameObjects.Add(menu);
+
+        var guy = new Guy(Game, "guy_forward_left");
+        guy.Position = new Vector2(Game.CenterScreen.X + 100, Game.CenterScreen.Y);
+        GameObjects.Add(guy);
     }
 
     public override void AddGameObject(GameObject obj)
