@@ -67,7 +67,7 @@ namespace Pong
                 
                 if (go.Name == "guy_forward_left")
                 {
-                    go.AddAnimation(go.Texture, "idle", 5, 0);
+                    go.AddAnimation("idle", 0);
                 }
             }
         }
@@ -107,11 +107,11 @@ namespace Pong
             {
                 if (go.Name == "guy_forward_left")
                 {
-                    go.Animation.stencil.X += go.Animation.offset;
+                    go.CurrentAnimation.Stencil.X += go.CurrentAnimation.FrameWidth;
                     _spriteBatch.Draw(
                         go.Texture,
                         go.Position,
-                        go.Animation.stencil,
+                        go.CurrentAnimation.Stencil,
                         Color.White,
                         0f,
                         new Vector2(go.Texture.Width / 2f, go.Texture.Height / 2f),

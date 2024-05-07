@@ -12,7 +12,6 @@ public class MenuItem : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
-    public override Animation Animation { get; set; }
 
     public const float Spacing = 60f;
     
@@ -22,4 +21,13 @@ public class MenuItem : GameObject
         Name = name;
     }
 
+    public override void AddAnimation(string name, int index)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlayAnimation(string name)
+    {
+        throw new System.NotImplementedException();
+    }
 }

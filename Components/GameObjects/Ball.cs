@@ -13,7 +13,7 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
-        public override Animation Animation { get; set; }
+
         private Vector2 Direction { get; set; }        
         private float Speed { get; set; }
 
@@ -83,6 +83,16 @@ namespace Pong.Components.GameObjects
         {
             Position = _game.CenterScreen;
             Speed = DefaultSpeed;
+        }
+        
+        public override void AddAnimation(string name, int index)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void PlayAnimation(string name)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

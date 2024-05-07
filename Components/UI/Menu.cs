@@ -13,7 +13,6 @@ public class Menu : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
-    public override Animation Animation { get; set; }
 
     public readonly List<GameObject> GameObjects = new();
     
@@ -59,6 +58,16 @@ public class Menu : GameObject
             _game.Exit();
         }
         
+    }
+    
+    public override void AddAnimation(string name, int index)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlayAnimation(string name)
+    {
+        throw new System.NotImplementedException();
     }
 }
 

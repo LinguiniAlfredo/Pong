@@ -12,12 +12,21 @@ public class Title : GameObject     // TODO - Create UIObject class with less sh
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
-    public override Animation Animation { get; set; }
 
     public Title(Pong game, string name) : base(game, name)
     {
         _game = game;
         Name = name;
+    }
+    
+    public override void AddAnimation(string name, int index)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlayAnimation(string name)
+    {
+        throw new System.NotImplementedException();
     }
 
 }

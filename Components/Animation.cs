@@ -5,11 +5,15 @@ namespace Pong.Components;
 
 public class Animation
 {
-    public Animation(GameObject go, string name, Texture2D texture, int frames, int row)
+    public readonly string Name;
+    public Rectangle Stencil;
+    public readonly int FrameWidth;
+    private readonly int FrameHeight;
+    public Animation(GameObject go, string name, Texture2D texture, int frames, int index)
     {
-        height = texture.Height / 
-        Stencil = new Rectangle((int)go.Position.X, (int)go.Position.Y, offset, texture.Height);
+        Name = name;
+        FrameWidth = texture.Width / frames;
+        FrameHeight = texture.Height / 1;
+        Stencil = new Rectangle((int)go.Position.X, (int)go.Position.Y, FrameWidth, texture.Height);
     }
-
-    
 }

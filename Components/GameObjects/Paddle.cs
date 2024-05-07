@@ -13,7 +13,7 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
-        public override Animation Animation { get; set; }
+
         public float Spacing { get; set; }
         private float Speed { get; set; }
 
@@ -48,6 +48,16 @@ namespace Pong.Components.GameObjects
             Collision = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point(Texture.Width, Texture.Height));
 
             Position += velocity * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+        
+        public override void AddAnimation(string name, int index)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void PlayAnimation(string name)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -13,7 +13,9 @@ namespace Pong.Components
         public abstract Texture2D Texture {get; set;}
         public abstract Rectangle Collision { get; set; }
         public abstract float Depth { get; set; }
-        public abstract List<Animation> Animations { get; set; }
+
+        public List<Animation> Animations { get; set; } = new List<Animation>();
+        public Animation CurrentAnimation { get; set; }
         
         protected GameObject(Pong game, string name) : base(game)
         {
@@ -23,9 +25,7 @@ namespace Pong.Components
             Depth = 0f;
         }
 
-        public void AddAnimation(Texture2D texture, string name, int frames, int row)
-        {
-            Animations.Add(new Animation(this, "idle", texture, frames, row));
-        }
+        public abstract void AddAnimation(string name, int index);
+        public abstract void PlayAnimation(string name);
     }
 }

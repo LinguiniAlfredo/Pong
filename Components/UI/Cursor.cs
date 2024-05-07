@@ -17,7 +17,6 @@ public class Cursor : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
-    public override Animation Animation { get; set; }
 
     private const float Speed = 1500f;
     
@@ -120,6 +119,15 @@ public class Cursor : GameObject
         }
         
         
+    }
+    public override void AddAnimation(string name, int index)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlayAnimation(string name)
+    {
+        throw new System.NotImplementedException();
     }
     
 
