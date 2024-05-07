@@ -7,6 +7,7 @@ namespace Pong.Components.GameObjects;
 
 public class Guy : GameObject
 {
+    private readonly Pong _game;
     public override string Name { get; set; }
     public override Vector2 Position { get; set; }
     public override Texture2D Texture { get; set; }
@@ -15,6 +16,7 @@ public class Guy : GameObject
 
     public Guy(Pong game, string name) : base(game, name)
     {
+       Position = new Vector2(game.CenterScreen.X + 100, game.CenterScreen.Y);
     }
 
     public override void Update(GameTime deltatime)

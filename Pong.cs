@@ -107,7 +107,6 @@ namespace Pong
             {
                 if (go.Name == "guy_forward_left")
                 {
-                    go.CurrentAnimation.Stencil.X += go.CurrentAnimation.FrameWidth;
                     _spriteBatch.Draw(
                         go.Texture,
                         go.Position,
@@ -119,6 +118,7 @@ namespace Pong
                         SpriteEffects.None,
                         go.Depth
                     );
+                    go.CurrentAnimation.CycleAnimation();
                 }
                 else
                 {

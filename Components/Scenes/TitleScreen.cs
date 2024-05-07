@@ -35,7 +35,6 @@ public class TitleScreen : Scene
         GameObjects.Add(menu);
 
         var guy = new Guy(Game, "guy_forward_left");
-        guy.Position = new Vector2(Game.CenterScreen.X + 100, Game.CenterScreen.Y);
         GameObjects.Add(guy);
     }
 
