@@ -33,9 +33,6 @@ public class TitleScreen : Scene
             GameObjects.Add(obj);
         }
         GameObjects.Add(menu);
-
-        var guy = new Guy(Game, "guy_forward_left");
-        GameObjects.Add(guy);
     }
 
     public override void AddGameObject(GameObject obj)

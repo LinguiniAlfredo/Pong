@@ -32,10 +32,10 @@ public class Menu : GameObject
         
         for (var i = 0; i < rows; i++)
         {
-            var menuItem = new MenuItem(_game, "");
+            var menuItem = new MenuItem(_game, i == 0 ? "play" : "quit");
             menuItem.Position = new Vector2(Position.X, (Position.Y - 40)+ (MenuItem.Spacing * i));
             MenuItems.Add(menuItem);
-            // GameObjects.Add(menuItem);
+            GameObjects.Add(menuItem);
         }
         
         var cursor = new Cursor(_game, "ball", this);

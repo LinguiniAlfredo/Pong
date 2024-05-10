@@ -12,6 +12,7 @@ public class Animation
     private int FrameIndex = 0;
     private int TotalFrames;
     private Vector2 StartPosition;
+    
     public Animation(GameObject go, string name, Texture2D texture, int frames, int index)
     {
         var halfWidth = texture.Width / 2;
@@ -21,8 +22,8 @@ public class Animation
         TotalFrames = frames;
         FrameWidth = texture.Width / frames;
         FrameHeight = texture.Height / 1;
-        StartPosition = new Vector2(go.Position.X - halfWidth, go.Position.Y - halfHeight);
-        Stencil = new Rectangle((int)StartPosition.X, (int)StartPosition.Y, texture.Width, texture.Height);
+        StartPosition = new Vector2(go.Position.X , go.Position.Y);
+        Stencil = new Rectangle((int)StartPosition.X, (int)StartPosition.Y, FrameWidth ,texture.Height);
     }
 
     public void CycleAnimation()
