@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using Pong.Components.UI;
 
 namespace Pong.Components.Scenes;
 
@@ -17,10 +19,14 @@ public class GameOver : Scene
         Name = name;
         
         GameObjects = new List<GameObject>();
+
+        var gameOver = new GameOverObject(Game, "gameover", false);
+        GameObjects.Add(gameOver);
     }
 
     public override void AddGameObject(GameObject obj)
     {
         throw new System.NotImplementedException();
     }
+    
 }

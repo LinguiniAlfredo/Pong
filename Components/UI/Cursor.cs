@@ -17,6 +17,7 @@ public class Cursor : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override bool hasTexture { get; set; }
 
     private const float Speed = 1500f;
     
@@ -29,12 +30,13 @@ public class Cursor : GameObject
     private int _direction = -1;
     
     
-    public Cursor(Pong game, string name, Menu menu) : base(game, name)
+    public Cursor(Pong game, string name, Menu menu, bool hasTexture) : base(game, name, hasTexture)
     {
         _game = game;
         _menu = menu;
         Name = name;
-
+        this.hasTexture = hasTexture;
+        
         foreach (var item in _menu.MenuItems)
         {
             _menuPositions.Add(item.Position);
@@ -46,7 +48,6 @@ public class Cursor : GameObject
     {
         var kstate = Keyboard.GetState();
         var velocity = Vector2.Zero;
-        
         
         switch (_inPosition)
         {
@@ -69,7 +70,6 @@ public class Cursor : GameObject
                 _targetPosition = _menuPositions[_menu.currentMenuIndex - 1];
                 velocity.Y -= 1;
                 _direction = -1;
-          
             }
         
             if (kstate.IsKeyDown(Keys.S))

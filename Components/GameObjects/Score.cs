@@ -5,7 +5,7 @@
         public string Player {get; set;}
         public int Value { get; set;}
 
-        public const string Filepath = @"C:\vs_projects\Pong\Pong\scores.json";
+        public const string Filepath = @".\scores.json";
 
         public Score(string player, int value) {
             Player = player;

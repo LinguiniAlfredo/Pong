@@ -19,15 +19,15 @@ public class Level1 : Scene
 
         GameObjects = new List<GameObject>();
         
-        Ball ball = new(Game, "ball");
+        Ball ball = new(Game, "ball", true);
         ball.Position = Game.CenterScreen;
         GameObjects.Add(ball);
         
-        Paddle paddle1 = new(Game, "paddle_1");
+        Paddle paddle1 = new(Game, "paddle_1", true);
         paddle1.Position = new Vector2(paddle1.Spacing, Game.Height/2);
         GameObjects.Add(paddle1);
         
-        Paddle paddle2 = new(Game, "paddle_2");
+        Paddle paddle2 = new(Game, "paddle_2", true);
         paddle2.Position = new Vector2(Game.Width - paddle1.Spacing, Game.Height/2);
         GameObjects.Add(paddle2);
     }

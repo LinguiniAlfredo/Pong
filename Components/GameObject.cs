@@ -14,15 +14,18 @@ namespace Pong.Components
         public abstract Rectangle Collision { get; set; }
         public abstract float Depth { get; set; }
 
+        public abstract bool hasTexture { get; set; }
+
         public List<Animation> Animations { get; set; } = new List<Animation>();
         public Animation CurrentAnimation { get; set; }
         
-        protected GameObject(Pong game, string name) : base(game)
+        protected GameObject(Pong game, string name, bool hasTexture) : base(game)
         {
             _game = game;
             Name = name;
 
             Depth = 0f;
+            hasTexture = hasTexture;
         }
 
         public abstract void AddAnimation(string name, int index);

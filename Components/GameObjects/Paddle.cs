@@ -13,18 +13,20 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
+        public override bool hasTexture { get; set; }
 
         public float Spacing { get; set; }
         private float Speed { get; set; }
 
 
-        public Paddle(Pong game, string name) : base(game, name)
+        public Paddle(Pong game, string name, bool hasTexture) : base(game, name, hasTexture)
         {
             _game = game;
 
             Name = name;
             Spacing = 20;
             Speed = 250f;
+            this.hasTexture = hasTexture;
         }
 
         public override void Update(GameTime gameTime)

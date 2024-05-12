@@ -13,6 +13,7 @@ namespace Pong.Components.GameObjects
         public override Vector2 Position { get; set; }
         public override Rectangle Collision { get; set; }
         public override float Depth { get; set; }
+        public override bool hasTexture { get; set; }
 
         private Vector2 Direction { get; set; }        
         private float Speed { get; set; }
@@ -20,13 +21,14 @@ namespace Pong.Components.GameObjects
         private const float DefaultSpeed = 100f;
 
 
-        public Ball(Pong game, string name) : base(game, name)
+        public Ball(Pong game, string name, bool hasTexture) : base(game, name, hasTexture)
         {
             _game = game;
 
             Name = name;
             Direction = new Vector2(1, 1);
             Speed = DefaultSpeed;
+            this.hasTexture = hasTexture;
 
         }
 

@@ -63,7 +63,10 @@ namespace Pong
             Debug.WriteLine("loading content....");
             foreach (var go in Scenes.SelectMany(scene => scene.GameObjects))
             {
-                go.Texture = Content.Load<Texture2D>(go.Name);
+                if (go.hasTexture)
+                {
+                    go.Texture = Content.Load<Texture2D>(go.Name);
+                }
                 
                 if (go.Name == "guy_forward_left")
                 {
@@ -120,7 +123,7 @@ namespace Pong
                     );
                     go.CurrentAnimation.CycleAnimation();
                 }
-                else
+                else if (go.hasTexture)
                 {
                     _spriteBatch.Draw(
                         go.Texture,

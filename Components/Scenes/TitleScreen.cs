@@ -21,11 +21,11 @@ public class TitleScreen : Scene
         
         GameObjects = new List<GameObject>();
 
-        var title = new Title(Game, "title");
+        var title = new Title(Game, "title", true);
         title.Position = new Vector2(Game.CenterScreen.X, Game.CenterScreen.Y - 100);
         GameObjects.Add(title);
         
-        var menu = new Menu(Game, "mainmenu", 2);
+        var menu = new Menu(Game, "mainmenu", 2, false);
         
         foreach (GameObject obj in menu.GameObjects)
         {

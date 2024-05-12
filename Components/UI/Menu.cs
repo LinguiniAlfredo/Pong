@@ -13,6 +13,7 @@ public class Menu : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override bool hasTexture { get; set; }
 
     public readonly List<GameObject> GameObjects = new();
     
@@ -23,25 +24,29 @@ public class Menu : GameObject
     public bool _allowInputs = false;
 
 
-    public Menu(Pong game, string name, int rows) : base(game, name)
+    public Menu(Pong game, string name, int rows, bool hasTexture) : base(game, name, hasTexture)
     {
         _game = game;
         Name = name;
+        this.hasTexture = hasTexture;
         
         Position = new Vector2(_game.CenterScreen.X, _game.CenterScreen.Y + 100);
         
         for (var i = 0; i < rows; i++)
         {
-            var menuItem = new MenuItem(_game, i == 0 ? "play" : "quit");
+            var menuItem = new MenuItem(_game, i == 0 ? "play" : "quit", true);
             menuItem.Position = new Vector2(Position.X, (Position.Y - 40)+ (MenuItem.Spacing * i));
             MenuItems.Add(menuItem);
             GameObjects.Add(menuItem);
         }
-        
-        var cursor = new Cursor(_game, "ball", this);
-        GameObjects.Add(cursor);
 
-        cursor.Position = new Vector2(MenuItems[0].Position.X - 160, MenuItems[0].Position.Y);
+        var cursorLeft = new Cursor(_game, "ball", this, true);
+        GameObjects.Add(cursorLeft);
+        var cursorRight = new Cursor(_game, "ball", this, true);
+        GameObjects.Add(cursorRight);
+
+        cursorLeft.Position = new Vector2(MenuItems[0].Position.X - 100, MenuItems[0].Position.Y);
+        cursorRight.Position = new Vector2(MenuItems[0].Position.X + 100, MenuItems[0].Position.Y);
     }
 
     public override void Update(GameTime deltaTime)

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Pong.Components.UI;
 
-public class MenuItem : GameObject
+public class GameOverObject : GameObject
 {
     private readonly Pong _game;
 
@@ -14,15 +15,16 @@ public class MenuItem : GameObject
     public override float Depth { get; set; }
     public override bool hasTexture { get; set; }
 
-    public const float Spacing = 60f;
+    public bool _hasTexture;
     
-    public MenuItem(Pong game, string name, bool hasTexture) : base(game, name, hasTexture)
+    
+    public GameOverObject(Pong game, string name, bool hasTexture) : base(game, name, hasTexture)
     {
         _game = game;
         Name = name;
-        this.hasTexture = hasTexture;
+        _hasTexture = hasTexture;
     }
-
+   
     public override void AddAnimation(string name, int index)
     {
         throw new System.NotImplementedException();
@@ -31,5 +33,15 @@ public class MenuItem : GameObject
     public override void PlayAnimation(string name)
     {
         throw new System.NotImplementedException();
+    }
+    
+    public override void Update(GameTime deltaTime)
+    {
+        var kstate = Keyboard.GetState();
+
+        if (kstate.IsKeyDown(Keys.Enter))
+        {
+            _game.SetCurrentScene(_game.Scenes.Find(s => s.Name == "title"));
+        }
     }
 }

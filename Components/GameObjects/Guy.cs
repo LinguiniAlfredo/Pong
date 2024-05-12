@@ -13,8 +13,9 @@ public class Guy : GameObject
     public override Texture2D Texture { get; set; }
     public override Rectangle Collision { get; set; }
     public override float Depth { get; set; }
+    public override bool hasTexture { get; set; }
 
-    public Guy(Pong game, string name) : base(game, name)
+    public Guy(Pong game, string name, bool hasTexture) : base(game, name, hasTexture)
     {
         _game = game;
         Name = name;
